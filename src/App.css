@@ -18,17 +18,17 @@
 }
 
 :root[data-theme='light'] {
-  --bg: #f4f5f8;
-  --surface: #ffffff;
-  --line: #dbdfe8;
-  --ink: #161a22;
-  --ink-dim: #525a68;
-  --ink-faint: #848d9c;
-  --accent: #4a5fd9;
-  --accent-dim: #8e9ae8;
-  --gold: #a9762e;
+  --bg: #f3ecdf;
+  --surface: #faf5ea;
+  --line: #ddd0b7;
+  --ink: #2b2318;
+  --ink-dim: #6b5d47;
+  --ink-faint: #93846a;
+  --accent: #3d52c2;
+  --accent-dim: #8893d6;
+  --gold: #8b5e24;
   --on-accent: #ffffff;
-  --nav-bg: rgba(244, 245, 248, 0.85);
+  --nav-bg: rgba(243, 236, 223, 0.85);
   color-scheme: light;
 }
 
@@ -429,16 +429,22 @@ h1, h2, h3 {
 }
 
 /* ---------- Scroll reveal ---------- */
+/* Signature "developing" reveal: content comes into focus and gains
+   color as it enters view, instead of the generic fade/slide-up.
+   Deliberately avoids transform/clip-path on the observed element —
+   both can desync IntersectionObserver's geometry in some browsers. */
 
 [data-reveal] {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  filter: blur(9px) grayscale(1) brightness(0.92);
+  transition:
+    opacity 0.7s cubic-bezier(0.19, 1, 0.22, 1),
+    filter 0.95s ease-out;
 }
 
 [data-reveal].is-visible {
   opacity: 1;
-  transform: translateY(0);
+  filter: blur(0) grayscale(0) brightness(1);
 }
 
 /* ---------- Responsive ---------- */
@@ -496,6 +502,6 @@ h1, h2, h3 {
 
   [data-reveal] {
     opacity: 1 !important;
-    transform: none !important;
+    filter: none !important;
   }
 }
